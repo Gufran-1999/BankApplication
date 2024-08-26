@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@Controller// Assume this is making API's inside this class visible to
+// the embeded server so that it can route to an appropiate function.
 public class BankController {
 
     @Autowired
@@ -25,6 +26,11 @@ public class BankController {
     @Value("${bank.name}")
     private String bankname;
 
+    @GetMapping("/")
+    public String home(Model model){
+        model.addAttribute("bankName", bankname);
+        return "home";
+    }
     @GetMapping("/branches")
     public String getAllBranch(Model model){
         model.addAttribute("bankName", bankname);
